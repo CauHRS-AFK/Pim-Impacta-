@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Dashboard Corporativo</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <span class="logo-icon">🌱</span>
+            <h2>Impacta<span class="highlight">+</span></h2>
+          </div>
+          <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item"
+              ><span class="icon">📊</span> Dashboard</a
+            >
+            <a href="projetos.html" class="nav-item"
+              ><span class="icon">📁</span> Projetos Sociais</a
+            >
+            <a href="acoes.html" class="nav-item"
+              ><span class="icon">📝</span> Registro de Ações</a
+            >
+            <a href="relatorios.html" class="nav-item"
+              ><span class="icon">📄</span> Relatórios</a
+            >
+            <a href="configuracoes.html" class="nav-item"
+              ><span class="icon">⚙️</span> Configurações</a
+            >
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="action-card">
+            <p>Cada ação gera impacto real.</p>
+            <a href="#">Saiba mais →</a>
+          </div>
+          <div class="user-profile">
+            <div class="profile-info">
+              <div class="avatar">MS</div>
+              <div>
+                <h4>Mariana Silva</h4>
+                <p>Gestora ESG</p>
+              </div>
+            </div>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-welcome">
+            <h1>Olá, Mariana! 👋</h1>
+            <p>
+              Aqui está o panorama de impacto social e conformidade ESG da sua
+              empresa.
+            </p>
+          </div>
+          <div class="header-actions">
+            <div
+              class="date-picker-group"
+              style="display: flex; gap: 8px; align-items: center"
+            >
+              <input
+                type="date"
+                id="filtroDataInicio"
+                value="2026-05-01"
+                style="
+                  padding: 6px;
+                  border: 1px solid #cbd5e1;
+                  border-radius: 6px;
+                  font-family: inherit;
+                "
+              />
+              <span style="color: #64748b">até</span>
+              <input
+                type="date"
+                id="filtroDataFim"
+                value="2026-05-31"
+                style="
+                  padding: 6px;
+                  border: 1px solid #cbd5e1;
+                  border-radius: 6px;
+                  font-family: inherit;
+                "
+              />
+            </div>
+            <button
+              class="btn-export"
+              onclick="window.location.href = 'relatorios.html'"
+            >
+              📥 Ir para Relatórios
+            </button>
+          </div>
+        </header>
+
+        <section class="metrics-grid">
+          <div class="metric-card">
+            <div class="card-header">
+              <span class="metric-title">Pessoas Impactadas</span>
+              <span class="card-icon bg-light-green">👥</span>
+            </div>
+            <div class="card-body">
+              <h2 id="numero-pessoas">--</h2>
+              <span class="trend positive"
+                >▲ 12% <small>vs. mês anterior</small></span
+              >
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="card-header">
+              <span class="metric-title">Projetos Ativos</span>
+              <span class="card-icon bg-light-blue">💼</span>
+            </div>
+            <div class="card-body">
+              <h2 id="numero-projetos">--</h2>
+              <span class="trend positive"
+                >▲ 8% <small>vs. mês anterior</small></span
+              >
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="card-header">
+              <span class="metric-title">Ações Registradas</span>
+              <span class="card-icon bg-light-purple">📈</span>
+            </div>
+            <div class="card-body">
+              <h2 id="numero-acoes">--</h2>
+              <span class="trend positive"
+                >▲ 6% <small>vs. mês anterior</small></span
+              >
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="card-header">
+              <span class="metric-title">Score de Impacto</span>
+              <span class="card-icon bg-light-orange">🎯</span>
+            </div>
+            <div class="card-body score-body">
+              <div>
+                <h2>
+                  <span id="numero-score">--</span
+                  ><span class="total-score">/100</span>
+                </h2>
+                <span class="trend positive"
+                  >▲ 5% <small>vs. mês anterior</small></span
+                >
+              </div>
+              <div class="gauge-chart-box">
+                <canvas id="gaugeChart" width="60" height="60"></canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="visualizations-grid">
+          <div class="vis-card wide">
+            <div class="vis-header">
+              <h3>Evolução do Impacto Social (Geral) ℹ️</h3>
+              <select class="select-filter">
+                <option>Últimos 6 meses</option>
+              </select>
+            </div>
+            <div class="chart-container">
+              <canvas id="frequencyChart"></canvas>
+            </div>
+            <div class="vis-footer-alert">
+              <span
+                >🍃 O índice de impacto gerado aumentou
+                <strong>12%</strong> devido à expansão dos novos projetos
+                comunitários.</span
+              >
+            </div>
+          </div>
+
+          <div class="vis-card">
+            <div class="vis-header">
+              <h3>Distribuição por Projeto Social ℹ️</h3>
+            </div>
+            <div class="chart-container-donut">
+              <canvas id="courseChart"></canvas>
+              <div class="donut-center-text">
+                <h3 id="donut-total-projetos">1</h3>
+                <p>projeto</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="vis-card">
+            <div class="vis-header">
+              <h3>Status de Conformidade ESG ℹ️</h3>
+            </div>
+            <div class="evolution-list">
+              <div class="evolution-item">
+                <div class="evo-info">
+                  <span
+                    >🌱 Planejamento <small>(Definição de metas)</small></span
+                  >
+                  <strong>15%</strong>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress progress-1" style="width: 15%"></div>
+                </div>
+              </div>
+              <div class="evolution-item">
+                <div class="evo-info">
+                  <span>🌿 Em Execução <small>(Ações em campo)</small></span>
+                  <strong>50%</strong>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress progress-2" style="width: 50%"></div>
+                </div>
+              </div>
+              <div class="evolution-item">
+                <div class="evo-info">
+                  <span>🌳 Mensurado <small>(Dados validados)</small></span>
+                  <strong>25%</strong>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress progress-3" style="width: 25%"></div>
+                </div>
+              </div>
+              <div class="evolution-item">
+                <div class="evo-info">
+                  <span
+                    >🚀 Impacto Certificado
+                    <small>(Pronto para auditoria)</small></span
+                  >
+                  <strong>10%</strong>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress progress-4" style="width: 10%"></div>
+                </div>
+              </div>
+            </div>
+            <p class="evo-caption">
+              Baseado em indicadores de auditoria interna e relatórios
+              automatizados.
+            </p>
+          </div>
+        </section>
+
+        <section class="tables-grid">
+          <div class="table-card">
+            <div class="table-header">
+              <h3>Iniciativas e Projetos Sociais</h3>
+              <a href="#" class="see-all">Ver todos</a>
+            </div>
+            <div class="list-container">
+              <div class="list-item">
+                <div class="item-main">
+                  <div class="item-icon green-icon">✔</div>
+                  <div class="item-details">
+                    <h4>Inclusão Digital Comunitária</h4>
+                    <p>Meta: 5.000 pessoas • Zona Leste SP • Status: Ativo</p>
+                  </div>
+                </div>
+                <span class="badge badge-green">1.250 impactados</span>
+              </div>
+              <div class="list-item">
+                <div class="item-main">
+                  <div class="item-icon blue-icon">📋</div>
+                  <div class="item-details">
+                    <h4>Logística Reversa de Eletrônicos</h4>
+                    <p>
+                      Meta: 10 toneladas • Grande SP • Status: Em planejamento
+                    </p>
+                  </div>
+                </div>
+                <span class="badge badge-blue">380 unidades coligidas</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <div class="table-header">
+              <h3>Histórico de Ações Recentes</h3>
+              <a href="#" class="see-all">Ver todas</a>
+            </div>
+            <div class="list-container">
+              <div class="list-item">
+                <div class="item-main">
+                  <div class="item-icon gray-icon">👥</div>
+                  <div class="item-details">
+                    <h4>Ação "Notebooks entregues" registrada com sucesso.</h4>
+                  </div>
+                </div>
+                <span class="item-time">Hoje, 10:30</span>
+              </div>
+              <div class="list-item">
+                <div class="item-main">
+                  <div class="item-icon gray-icon">📊</div>
+                  <div class="item-details">
+                    <h4>
+                      Indicador "Pessoas Beneficiadas" atualizado via API C#.
+                    </h4>
+                  </div>
+                </div>
+                <span class="item-time">Hoje, 09:15</span>
+              </div>
+              <div class="list-item">
+                <div class="item-main">
+                  <div class="item-icon gray-icon">🌱</div>
+                  <div class="item-details">
+                    <h4>
+                      Banco de Dados Corporativo inicializado com Seed de dados.
+                    </h4>
+                  </div>
+                </div>
+                <span class="item-time">Ontem, 16:40</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script src="dashboard.js"></script>
+  </body>
+</html>

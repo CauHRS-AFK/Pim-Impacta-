@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Projetos Sociais</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilos específicos para harmonizar a área de gestão de projetos */
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 32px;
+      }
+      @media (max-width: 900px) {
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .form-card,
+      .list-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .form-card h3,
+      .list-card h3 {
+        margin-top: 0;
+        margin-bottom: 24px;
+        color: #0f172a;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #334155;
+      }
+      .input-group input,
+      .input-group textarea {
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .input-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+      .input-group input:focus,
+      .input-group textarea:focus {
+        border-color: #22c55e;
+      }
+      .btn-submit {
+        background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: opacity 0.2s;
+      }
+      .btn-submit:hover {
+        opacity: 0.95;
+      }
+
+      /* Estilização dos itens da lista de projetos */
+      .projeto-item {
+        border-bottom: 1px solid #f1f5f9;
+        padding: 16px 0;
+      }
+      .projeto-item:last-child {
+        border-bottom: none;
+      }
+      .projeto-item h4 {
+        margin: 0 0 6px 0;
+        color: #1e293b;
+        font-size: 16px;
+      }
+      .projeto-item p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .empty-state {
+        text-align: center;
+        color: #94a3b8;
+        padding: 40px 0;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <span class="logo-icon">🌱</span>
+            <h2>Impacta<span class="highlight">+</span></h2>
+          </div>
+          <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item"
+              ><span class="icon">📊</span> Dashboard</a
+            >
+            <a href="projetos.html" class="nav-item"
+              ><span class="icon">📁</span> Projetos Sociais</a
+            >
+            <a href="acoes.html" class="nav-item"
+              ><span class="icon">📝</span> Registro de Ações</a
+            >
+            <a href="relatorios.html" class="nav-item"
+              ><span class="icon">📄</span> Relatórios</a
+            >
+            <a href="configuracoes.html" class="nav-item"
+              ><span class="icon">⚙️</span> Configurações</a
+            >
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="action-card">
+            <p>Cada ação gera impacto real.</p>
+            <a href="#">Saiba mais →</a>
+          </div>
+          <div class="user-profile">
+            <div class="profile-info">
+              <div class="avatar">MS</div>
+              <div>
+                <h4>Mariana Silva</h4>
+                <p>Gestora ESG</p>
+              </div>
+            </div>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-welcome">
+            <h1>Projetos Sociais 📁</h1>
+            <p>
+              Gerencie as iniciativas e planeje metas de transformação da sua
+              instituição.
+            </p>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <div class="form-card">
+            <h3>Cadastrar Novo Projeto</h3>
+            <form id="projetoForm">
+              <div class="input-group">
+                <label>Nome do Projeto Social</label>
+                <input
+                  type="text"
+                  id="nomeProjeto"
+                  placeholder="Ex: Reflorestamento Urbano"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label>Descrição das Atividades</label>
+                <textarea
+                  id="descricaoProjeto"
+                  placeholder="Descreva os objetivos, público-alvo e metas da iniciativa..."
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn-submit">Salvar Projeto →</button>
+            </form>
+          </div>
+
+          <div class="list-card">
+            <h3>Iniciativas Ativas</h3>
+            <div id="listaProjetosContainer">
+              <div class="empty-state">A carregar projetos...</div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // === INÍCIO DO PASSO B: CARREGAR O NOME DO GESTOR ===
+      const nomeDoBanco = localStorage.getItem('nomeUsuarioLogado');
+
+      if (nomeDoBanco) {
+        // 1. Altera o nome no perfil do canto inferior esquerdo
+        const perfilNome = document.querySelector('.user-profile h4');
+        if (perfilNome) perfilNome.innerText = nomeDoBanco;
+
+        // 2. Altera as iniciais do avatar (Ex: Mariana Carneiro vira "MC")
+        const avatar = document.querySelector('.avatar');
+        if (avatar) {
+          const iniciais = nomeDoBanco
+            .split(' ')
+            .map(n => n[0])
+            .join('')
+            .substring(0, 2)
+            .toUpperCase();
+          avatar.innerText = iniciais;
+        }
+
+        // 3. Altera a mensagem de boas-vindas lá de cima
+        const boasVindas = document.querySelector('.header-welcome h1');
+        if (boasVindas) {
+          const primeiroNome = nomeDoBanco.split(' ')[0];
+          boasVindas.innerText = `Olá, ${primeiroNome}! 👋`;
+        }
+      }
+      const API_CADASTRAR = 'http://localhost:5000/api/projetos/cadastrar';
+      const API_LISTAR = 'http://localhost:5000/api/projetos/listar';
+
+      // 1. CARREGAR OS PROJETOS DO BANCO DE DADOS C#
+      function carregarProjetos() {
+        fetch(API_LISTAR)
+          .then(response => {
+            if (!response.ok)
+              throw new Error('Erro ao obter a lista de projetos.');
+            return response.json();
+          })
+          .then(projetos => {
+            const container = document.getElementById('listaProjetosContainer');
+            container.innerHTML = '';
+
+            if (projetos.length === 0) {
+              container.innerHTML =
+                '<div class="empty-state">Nenhum projeto registado até ao momento.</div>';
+              return;
+            }
+
+            // Popula o ecrã dinamicamente com os dados vindos do SQLite
+            projetos.forEach(p => {
+              const item = document.createElement('div');
+              item.className = 'projeto-item';
+              item.innerHTML = `
+                <h4>${p.nome}</h4>
+                <p>${p.descricao}</p>
+              `;
+              container.appendChild(item);
+            });
+          })
+          .catch(erro => {
+            console.error(erro);
+            document.getElementById('listaProjetosContainer').innerHTML =
+              '<div class="empty-state" style="color: #ef4444;">Falha ao ligar à API C# para carregar os projetos.</div>';
+          });
+      }
+
+      // 2. ENVIAR O FORMULÁRIO (POST) PARA O C#
+      document
+        .getElementById('projetoForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const payload = {
+            nome: document.getElementById('nomeProjeto').value,
+            descricao: document.getElementById('descricaoProjeto').value,
+            empresaId: 1, // Provisório: Vincula à empresa fictícia "Tech do Bem" criada no Seed
+          };
+
+          fetch(API_CADASTRAR, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(response =>
+              response
+                .json()
+                .then(data => ({ status: response.status, body: data })),
+            )
+            .then(resultado => {
+              if (resultado.status === 200) {
+                alert(resultado.body.mensagem);
+                document.getElementById('projetoForm').reset(); // Limpa o formulário
+                carregarProjetos(); // Recarrega a lista automaticamente sem precisar de F5!
+              } else {
+                alert('Erro: ' + resultado.body.mensagem);
+              }
+            })
+            .catch(erro => {
+              console.error('Erro na requisição:', erro);
+              alert('Não foi possível estabelecer ligação com o servidor C#.');
+            });
+        });
+
+      // Inicializa a listagem assim que a página é montada
+      document.addEventListener('DOMContentLoaded', carregarProjetos);
+    </script>
+  </body>
+</html>

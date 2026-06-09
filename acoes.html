@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Registro de Ações</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        max-width: 700px;
+        margin-top: 32px;
+      }
+      .form-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .form-card h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: #0f172a;
+        font-size: 18px;
+        font-weight: 600;
+      }
+      .form-card p {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 600px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #334155;
+      }
+      .input-group input,
+      .input-group select,
+      .input-group textarea {
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+        background-color: #fff;
+      }
+      .input-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .input-group input:focus,
+      .input-group select:focus,
+      .input-group textarea:focus {
+        border-color: #22c55e;
+      }
+      .btn-submit {
+        background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        transition: opacity 0.2s;
+        margin-top: 8px;
+      }
+      .btn-submit:hover {
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <span class="logo-icon">🌱</span>
+            <h2>Impacta<span class="highlight">+</span></h2>
+          </div>
+          <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item"
+              ><span class="icon">📊</span> Dashboard</a
+            >
+            <a href="projetos.html" class="nav-item"
+              ><span class="icon">📁</span> Projetos Sociais</a
+            >
+            <a href="acoes.html" class="nav-item"
+              ><span class="icon">📝</span> Registro de Ações</a
+            >
+            <a href="relatorios.html" class="nav-item"
+              ><span class="icon">📄</span> Relatórios</a
+            >
+            <a href="configuracoes.html" class="nav-item"
+              ><span class="icon">⚙️</span> Configurações</a
+            >
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="action-card">
+            <p>Cada ação gera impacto real.</p>
+            <a href="#">Saiba mais →</a>
+          </div>
+          <div class="user-profile">
+            <div class="profile-info">
+              <div class="avatar">MS</div>
+              <div>
+                <h4>Mariana Silva</h4>
+                <p>Gestora ESG</p>
+              </div>
+            </div>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-welcome">
+            <h1>Registro de Ações 📝</h1>
+            <p>Alimente a plataforma com os resultados alcançados em campo.</p>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <div class="form-card">
+            <h3>Nova Ação de Impacto</h3>
+            <p>
+              Preencha os dados abaixo para registrar uma nova doação, evento ou
+              resultado.
+            </p>
+
+            <form id="acaoForm">
+              <div class="input-group">
+                <label>Vincular a qual Indicador?</label>
+                <select id="selectIndicador" required>
+                  <option value="" disabled selected>
+                    Carregando indicadores do C#...
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="input-group">
+                  <label>Valor Alcançado (Quantidade)</label>
+                  <input
+                    type="number"
+                    id="valorAcao"
+                    min="0.1"
+                    step="0.1"
+                    placeholder="Ex: 50"
+                    required
+                  />
+                </div>
+
+                <div class="input-group">
+                  <label>Data da Ação</label>
+                  <input type="date" id="dataAcao" required />
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label>Descrição ou Observações</label>
+                <textarea
+                  id="descricaoAcao"
+                  placeholder="Detalhes adicionais sobre esta ação..."
+                  required
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit">
+                Registrar Impacto →
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // === INÍCIO DO PASSO B: CARREGAR O NOME DO GESTOR ===
+      const nomeDoBanco = localStorage.getItem('nomeUsuarioLogado');
+
+      if (nomeDoBanco) {
+        // 1. Altera o nome no perfil do canto inferior esquerdo
+        const perfilNome = document.querySelector('.user-profile h4');
+        if (perfilNome) perfilNome.innerText = nomeDoBanco;
+
+        // 2. Altera as iniciais do avatar (Ex: Mariana Carneiro vira "MC")
+        const avatar = document.querySelector('.avatar');
+        if (avatar) {
+          const iniciais = nomeDoBanco
+            .split(' ')
+            .map(n => n[0])
+            .join('')
+            .substring(0, 2)
+            .toUpperCase();
+          avatar.innerText = iniciais;
+        }
+
+        // 3. Altera a mensagem de boas-vindas lá de cima
+        const boasVindas = document.querySelector('.header-welcome h1');
+        if (boasVindas) {
+          const primeiroNome = nomeDoBanco.split(' ')[0];
+          boasVindas.innerText = `Olá, ${primeiroNome}! 👋`;
+        }
+      }
+      const API_GET_INDICADORES = 'http://localhost:5000/api/acoes/indicadores';
+      const API_POST_ACAO = 'http://localhost:5000/api/acoes/registrar';
+
+      // 1. Carrega os indicadores para o select assim que a página abrir
+      document.addEventListener('DOMContentLoaded', () => {
+        // Define a data de hoje como padrão no campo de data
+        document.getElementById('dataAcao').valueAsDate = new Date();
+
+        fetch(API_GET_INDICADORES)
+          .then(res => res.json())
+          .then(indicadores => {
+            const select = document.getElementById('selectIndicador');
+            select.innerHTML =
+              '<option value="" disabled selected>Selecione um indicador...</option>';
+
+            indicadores.forEach(ind => {
+              const option = document.createElement('option');
+              option.value = ind.id;
+              option.textContent = `${ind.projetoNome} - ${ind.nome} (${ind.unidade})`;
+              select.appendChild(option);
+            });
+          })
+          .catch(erro => {
+            console.error(erro);
+            document.getElementById('selectIndicador').innerHTML =
+              '<option value="" disabled>Erro ao carregar (Verifique o C#)</option>';
+          });
+      });
+
+      // 2. Envia os dados da ação para o C#
+      document
+        .getElementById('acaoForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const payload = {
+            indicadorId: parseInt(
+              document.getElementById('selectIndicador').value,
+            ),
+            valor: parseFloat(document.getElementById('valorAcao').value),
+            dataRegistro: document.getElementById('dataAcao').value,
+            descricao: document.getElementById('descricaoAcao').value,
+          };
+
+          fetch(API_POST_ACAO, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(res =>
+              res.json().then(data => ({ status: res.status, body: data })),
+            )
+            .then(resultado => {
+              if (resultado.status === 200) {
+                alert(resultado.body.mensagem);
+                document.getElementById('acaoForm').reset();
+                document.getElementById('dataAcao').valueAsDate = new Date(); // Reseta a data para hoje
+              } else {
+                alert('Erro: ' + resultado.body.mensagem);
+              }
+            })
+            .catch(erro => {
+              console.error('Erro na requisição:', erro);
+              alert('Não foi possível estabelecer ligação com o servidor C#.');
+            });
+        });
+    </script>
+  </body>
+</html>

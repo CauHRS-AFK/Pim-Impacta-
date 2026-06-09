@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Configurações</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 32px;
+        align-items: start;
+      }
+      @media (max-width: 900px) {
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .config-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 32px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .config-card h3 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        color: #0f172a;
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .config-card p {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 20px;
+      }
+      .input-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #334155;
+      }
+      .input-group input {
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .input-group input:focus {
+        border-color: #22c55e;
+      }
+
+      .btn-submit {
+        background: #0f172a;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        width: 100%;
+      }
+      .btn-submit:hover {
+        background: #334155;
+      }
+
+      .logout-section {
+        margin-top: 32px;
+        padding-top: 24px;
+        border-top: 1px solid #e2e8f0;
+      }
+      .btn-danger {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+      .btn-danger:hover {
+        background: #dc2626;
+      }
+    </style>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <span class="logo-icon">🌱</span>
+            <h2>Impacta<span class="highlight">+</span></h2>
+          </div>
+          <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item"
+              ><span class="icon">📊</span> Dashboard</a
+            >
+            <a href="projetos.html" class="nav-item"
+              ><span class="icon">📁</span> Projetos Sociais</a
+            >
+            <a href="acoes.html" class="nav-item"
+              ><span class="icon">📝</span> Registro de Ações</a
+            >
+            <a href="relatorios.html" class="nav-item"
+              ><span class="icon">📄</span> Relatórios</a
+            >
+            <a href="#" class="nav-item active"
+              ><span class="icon">⚙️</span> Configurações</a
+            >
+          </nav>
+        </div>
+
+        <div class="sidebar-bottom">
+          <div class="user-profile">
+            <div class="profile-info">
+              <div class="avatar">--</div>
+              <div>
+                <h4>Carregando...</h4>
+                <p>Gestor ESG</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-welcome">
+            <h1>Configurações do Sistema ⚙️</h1>
+            <p>
+              Gerencie as informações da conta, credenciais de segurança e
+              preferências.
+            </p>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <div class="config-card">
+            <h3>👤 Perfil da Organização</h3>
+            <p>Atualize os dados básicos do gestor logado no sistema.</p>
+
+            <form id="perfilForm">
+              <div class="input-group">
+                <label>Confirme seu E-mail Atual</label>
+                <input
+                  type="email"
+                  id="emailAtualPerfil"
+                  placeholder="Para validar sua identidade"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label>Novo Nome Completo</label>
+                <input
+                  type="text"
+                  id="editNome"
+                  placeholder="Ex: Mariana Silva"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label>Novo E-mail</label>
+                <input
+                  type="email"
+                  id="editEmail"
+                  placeholder="novo@empresa.com"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-submit">
+                Salvar Alterações
+              </button>
+            </form>
+          </div>
+
+          <div class="config-card">
+            <h3>🔒 Segurança e Credenciais</h3>
+            <p>
+              Altere sua senha de acesso periodicamente para manter a segurança.
+            </p>
+
+            <form id="senhaForm">
+              <div class="input-group">
+                <label>Confirme seu E-mail Atual</label>
+                <input
+                  type="email"
+                  id="emailAtualSenha"
+                  placeholder="Para validar sua identidade"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label>Senha Atual</label>
+                <input
+                  type="password"
+                  id="senhaAtual"
+                  placeholder="Digite a senha antiga"
+                  required
+                />
+              </div>
+              <div class="input-group">
+                <label>Nova Senha</label>
+                <input
+                  type="password"
+                  id="novaSenha"
+                  placeholder="Mínimo 8 caracteres"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn-submit">Atualizar Senha</button>
+            </form>
+
+            <div class="logout-section">
+              <p style="margin-bottom: 12px; color: #0f172a; font-weight: 500">
+                Encerrar Sessão
+              </p>
+              <button class="btn-danger" onclick="fazerLogout()">
+                <span>🚪</span> Sair com Segurança
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // 1. CARREGAR NOME DO USUÁRIO LOGADO NO MENU LATERAL
+      function atualizarNomesNaTela() {
+        const nomeDoBanco = localStorage.getItem('nomeUsuarioLogado');
+        if (nomeDoBanco) {
+          const perfilNome = document.querySelector('.user-profile h4');
+          if (perfilNome) perfilNome.innerText = nomeDoBanco;
+
+          const avatar = document.querySelector('.avatar');
+          if (avatar) {
+            const iniciais = nomeDoBanco
+              .split(' ')
+              .map(n => n[0])
+              .join('')
+              .substring(0, 2)
+              .toUpperCase();
+            avatar.innerText = iniciais;
+          }
+
+          const inputEditNome = document.getElementById('editNome');
+          if (inputEditNome && !inputEditNome.value)
+            inputEditNome.value = nomeDoBanco;
+        }
+      }
+
+      document.addEventListener('DOMContentLoaded', atualizarNomesNaTela);
+
+      // 2. ATUALIZAR PERFIL (Integração C#)
+      document
+        .getElementById('perfilForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const payload = {
+            emailAtual: document.getElementById('emailAtualPerfil').value,
+            novoNome: document.getElementById('editNome').value,
+            novoEmail: document.getElementById('editEmail').value,
+          };
+
+          fetch('http://localhost:5000/api/usuarios/perfil', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(res =>
+              res.json().then(data => ({ status: res.status, body: data })),
+            )
+            .then(resultado => {
+              if (resultado.status === 200) {
+                alert(resultado.body.mensagem);
+
+                // Atualiza a memória do navegador com o NOME NOVO
+                localStorage.setItem(
+                  'nomeUsuarioLogado',
+                  resultado.body.novoNome,
+                );
+                atualizarNomesNaTela(); // Atualiza a barra lateral na mesma hora!
+
+                document.getElementById('emailAtualPerfil').value =
+                  payload.novoEmail; // O novo e-mail passa a ser o atual
+              } else {
+                alert('Erro: ' + resultado.body.mensagem);
+              }
+            });
+        });
+
+      // 3. ATUALIZAR SENHA (Integração C#)
+      document
+        .getElementById('senhaForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const payload = {
+            emailAtual: document.getElementById('emailAtualSenha').value,
+            senhaAtual: document.getElementById('senhaAtual').value,
+            novaSenha: document.getElementById('novaSenha').value,
+          };
+
+          fetch('http://localhost:5000/api/usuarios/senha', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+            .then(res =>
+              res.json().then(data => ({ status: res.status, body: data })),
+            )
+            .then(resultado => {
+              if (resultado.status === 200) {
+                alert('✅ ' + resultado.body.mensagem);
+                document.getElementById('senhaForm').reset();
+              } else {
+                alert('❌ Erro: ' + resultado.body.mensagem);
+              }
+            });
+        });
+
+      // 4. FUNÇÃO DE LOGOUT
+      function fazerLogout() {
+        if (confirm('Tem certeza que deseja sair do sistema Impacta+?')) {
+          localStorage.removeItem('nomeUsuarioLogado');
+          window.location.href = 'index.html';
+        }
+      }
+    </script>
+  </body>
+</html>

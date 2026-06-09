@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Criar Conta Corporativa</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: #f1f5f9;
+        font-family: 'Inter', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .register-wrapper {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 550px;
+        padding: 40px;
+        box-sizing: border-box;
+      }
+      .logo-section {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .logo-section span {
+        font-size: 24px;
+      }
+      .logo-section h2 {
+        margin: 0;
+        color: #0f172a;
+        font-size: 22px;
+      }
+      .logo-section .highlight {
+        color: #22c55e;
+      }
+      h1 {
+        font-size: 26px;
+        color: #0f172a;
+        margin: 0 0 8px 0;
+      }
+      p.subtitle {
+        color: #64748b;
+        margin: 0 0 32px 0;
+        font-size: 14px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .full-width {
+        grid-column: span 2;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+      .input-group label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #334155;
+      }
+      .input-group input {
+        padding: 12px 14px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .input-group input:focus {
+        border-color: #22c55e;
+      }
+      .btn-submit {
+        background: linear-gradient(135deg, #22c55e 0%, #3b82f6 100%);
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 16px;
+        transition: opacity 0.2s;
+      }
+      .btn-submit:hover {
+        opacity: 0.95;
+      }
+      .footer-text {
+        text-align: center;
+        margin-top: 24px;
+        font-size: 13px;
+        color: #64748b;
+      }
+      .footer-text a {
+        color: #22c55e;
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="register-wrapper">
+      <div class="logo-section">
+        <span>🌱</span>
+        <h2>Impacta<span class="highlight">+</span></h2>
+      </div>
+      <h1>Criar conta 🍃</h1>
+      <p class="subtitle">
+        Preencha os dados organizacionais abaixo para começar.
+      </p>
+
+      <form id="cadastroForm">
+        <div class="form-grid">
+          <div class="input-group full-width">
+            <label>Nome completo do Gestor</label>
+            <input
+              type="text"
+              id="nomeGestor"
+              placeholder="Digite seu nome completo"
+              required
+            />
+          </div>
+
+          <div class="input-group full-width">
+            <label>E-mail Corporativo</label>
+            <input
+              type="email"
+              id="emailCorp"
+              placeholder="Digite seu e-mail"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Empresa / Organização</label>
+            <input
+              type="text"
+              id="nomeEmpresa"
+              placeholder="Nome da empresa ou ONG"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>CNPJ</label>
+            <input
+              type="text"
+              id="cnpjEmpresa"
+              placeholder="00.000.000/0001-00"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Senha</label>
+            <input
+              type="password"
+              id="senha"
+              placeholder="Crie uma senha"
+              required
+            />
+          </div>
+
+          <div class="input-group">
+            <label>Confirmar senha</label>
+            <input
+              type="password"
+              id="confirmaSenha"
+              placeholder="Confirme sua senha"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">Criar minha conta →</button>
+      </form>
+
+      <p class="footer-text">
+        Já tem uma conta? <a href="index.html">Voltar para o login</a>
+      </p>
+    </div>
+
+    <script>
+      document
+        .getElementById('cadastroForm')
+        .addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const senha = document.getElementById('senha').value;
+          const confirma = document.getElementById('confirmaSenha').value;
+
+          if (senha !== confirma) {
+            alert('As senhas não coincidem!');
+            return;
+          }
+
+          // Os dados capturados da tela
+          const payload = {
+            nome: document.getElementById('nomeGestor').value,
+            email: document.getElementById('emailCorp').value,
+            senha: senha,
+            empresaNome: document.getElementById('nomeEmpresa').value,
+            cnpj: document.getElementById('cnpjEmpresa').value,
+          };
+
+          // ENVIANDO PARA O C# DE VERDADE
+          // Lembre-se de verificar se a sua porta é 5001 ou 5000 no terminal
+          fetch('http://localhost:5000/api/cadastro/registrar', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          })
+            .then(response =>
+              response
+                .json()
+                .then(data => ({ status: response.status, body: data })),
+            )
+            .then(resultado => {
+              if (resultado.status === 200) {
+                // Sucesso!
+                alert(resultado.body.mensagem);
+                // Redireciona para a tela do Dashboard ou Login
+                window.location.href = 'dashboard_v2.html';
+              } else {
+                // Erro (ex: CNPJ já cadastrado)
+                alert('Erro: ' + resultado.body.mensagem);
+              }
+            })
+            .catch(erro => {
+              console.error('Falha na requisição:', erro);
+              alert(
+                'Não foi possível conectar com o banco de dados. A API está rodando?',
+              );
+            });
+        });
+    </script>
+  </body>
+</html>

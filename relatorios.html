@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Impacta+ | Relatórios</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 32px;
+      }
+      .report-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      }
+      .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 24px;
+        margin-bottom: 32px;
+      }
+      .report-header h2 {
+        margin: 0;
+        color: #0f172a;
+        font-size: 24px;
+      }
+      .btn-export {
+        background: #0f172a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn-export:hover {
+        background: #334155;
+      }
+
+      .projeto-secao {
+        margin-bottom: 40px;
+      }
+      .projeto-secao h3 {
+        color: #22c55e;
+        margin-bottom: 8px;
+      }
+      .projeto-secao p {
+        color: #64748b;
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      /* Tabela de Dados */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        text-align: left;
+        padding: 12px;
+        border-bottom: 1px solid #e2e8f0;
+      }
+      th {
+        background-color: #f8fafc;
+        color: #475569;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      td {
+        color: #1e293b;
+        font-size: 14px;
+      }
+      .highlight-value {
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      /* Mágica para o Gerador de PDF */
+      @media print {
+        body {
+          background: white;
+        }
+        .sidebar,
+        .main-header,
+        .btn-export {
+          display: none !important;
+        }
+        .main-content {
+          margin-left: 0 !important;
+          padding: 0 !important;
+        }
+        .report-card {
+          box-shadow: none;
+          padding: 0;
+        }
+        table {
+          border: 1px solid #e2e8f0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <div class="dashboard-container">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <div class="logo">
+            <span class="logo-icon">🌱</span>
+            <h2>Impacta<span class="highlight">+</span></h2>
+          </div>
+          <nav class="nav-menu">
+            <a href="dashboard.html" class="nav-item"
+              ><span class="icon">📊</span> Dashboard</a
+            >
+            <a href="projetos.html" class="nav-item"
+              ><span class="icon">📁</span> Projetos Sociais</a
+            >
+            <a href="acoes.html" class="nav-item"
+              ><span class="icon">📝</span> Registro de Ações</a
+            >
+            <a href="relatorios.html" class="nav-item"
+              ><span class="icon">📄</span> Relatórios</a
+            >
+            <a href="configuracoes.html" class="nav-item"
+              ><span class="icon">⚙️</span> Configurações</a
+            >
+          </nav>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="header-welcome">
+            <h1>Relatórios Oficiais 📄</h1>
+            <p>
+              Exporte o dossiê consolidado das iniciativas para prestação de
+              contas.
+            </p>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <div class="report-card" id="area-impressao">
+            <div class="report-header">
+              <div>
+                <h2>Relatório Consolidado de Impacto Social</h2>
+                <span
+                  style="color: #64748b; font-size: 14px"
+                  id="dataAtual"
+                ></span>
+              </div>
+              <button class="btn-export" onclick="window.print()">
+                📥 Exportar para PDF
+              </button>
+            </div>
+
+            <div id="containerRelatorio">
+              <p style="color: #94a3b8; text-align: center; padding: 20px">
+                A compilar dados corporativos...
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // === INÍCIO DO PASSO B: CARREGAR O NOME DO GESTOR ===
+      const nomeDoBanco = localStorage.getItem('nomeUsuarioLogado');
+
+      if (nomeDoBanco) {
+        // 1. Altera o nome no perfil do canto inferior esquerdo
+        const perfilNome = document.querySelector('.user-profile h4');
+        if (perfilNome) perfilNome.innerText = nomeDoBanco;
+
+        // 2. Altera as iniciais do avatar (Ex: Mariana Carneiro vira "MC")
+        const avatar = document.querySelector('.avatar');
+        if (avatar) {
+          const iniciais = nomeDoBanco
+            .split(' ')
+            .map(n => n[0])
+            .join('')
+            .substring(0, 2)
+            .toUpperCase();
+          avatar.innerText = iniciais;
+        }
+
+        // 3. Altera a mensagem de boas-vindas lá de cima
+        const boasVindas = document.querySelector('.header-welcome h1');
+        if (boasVindas) {
+          const primeiroNome = nomeDoBanco.split(' ')[0];
+          boasVindas.innerText = `Olá, ${primeiroNome}! 👋`;
+        }
+      }
+      // Coloca a data de hoje no cabeçalho do relatório
+      document.getElementById('dataAtual').innerText =
+        'Gerado em: ' + new Date().toLocaleDateString('pt-BR');
+
+      // Chama a API do C#
+      fetch('http://localhost:5000/api/relatorios/geral')
+        .then(res => res.json())
+        .then(projetos => {
+          const container = document.getElementById('containerRelatorio');
+          container.innerHTML = ''; // Limpa a mensagem de carregamento
+
+          if (projetos.length === 0) {
+            container.innerHTML =
+              '<p>Nenhum projeto registado para gerar relatório.</p>';
+            return;
+          }
+
+          // Monta o relatório dinamicamente
+          projetos.forEach(proj => {
+            let htmlProjeto = `
+              <div class="projeto-secao">
+                <h3>${proj.nomeProjeto}</h3>
+                <p>${proj.descricao}</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Indicador Monitorizado</th>
+                      <th>Unidade</th>
+                      <th>Total Consolidado</th>
+                      <th>Última Atualização</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+            `;
+
+            proj.indicadores.forEach(ind => {
+              // Formata a data se existir
+              let dataAcao = ind.ultimaAcao
+                ? new Date(ind.ultimaAcao).toLocaleDateString('pt-BR')
+                : 'Sem registros';
+
+              htmlProjeto += `
+                <tr>
+                  <td>${ind.nomeIndicador}</td>
+                  <td>${ind.unidade}</td>
+                  <td class="highlight-value">${ind.totalAlcancado.toLocaleString('pt-BR')}</td>
+                  <td>${dataAcao}</td>
+                </tr>
+              `;
+            });
+
+            htmlProjeto += `
+                  </tbody>
+                </table>
+              </div>
+            `;
+
+            container.innerHTML += htmlProjeto;
+          });
+        })
+        .catch(erro => {
+          console.error('Erro:', erro);
+          document.getElementById('containerRelatorio').innerHTML =
+            '<p style="color: red;">Erro ao processar dados. O servidor C# está ativo?</p>';
+        });
+    </script>
+  </body>
+</html>
